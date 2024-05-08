@@ -1,17 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { useGetOrdersQuery } from '../state/pizzaApi';
 
 export default function OrderList() {
-  const orders = []
+  const { data: orders } = useGetOrdersQuery();
+  
   return (
     <div id="orderList">
       <h2>Pizza Orders</h2>
       <ol>
         {
-          orders.map(() => {
+          orders?.map(order => {
             return (
-              <li key={1}>
+              <li key={order.id}>
                 <div>
-                  order details here
+                  {`${order.customer} ordered a size ${order.size} with ${order.toppings.length} topping${order.toppings.length === 1 ? '' : 's'}`}
                 </div>
               </li>
             )
