@@ -1,17 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit'
-
-const exampleReducer = (state = { count: 0 }) => {
-  return state
-}
+import { configureStore } from '@reduxjs/toolkit';
+import { pizzaApi } from './pizzaApi';
+import pizzaFormReducer from './pizzaFormSlice';
+import filterReducer from './filterSlice';
 
 export const resetStore = () => configureStore({
   reducer: {
-    example: exampleReducer,
-    // add your reducer(s) here
+    pizzaForm: pizzaFormReducer,
+    filters: filterReducer,
+    [pizzaApi.reducerPath]: pizzaApi.reducer,
   },
   middleware: getDefault => getDefault().concat(
-    // if using RTK Query for your networking: add your middleware here
-    // if using Redux Thunk for your networking: you can ignore this
+    pizzaApi.middleware
   ),
 })
 
